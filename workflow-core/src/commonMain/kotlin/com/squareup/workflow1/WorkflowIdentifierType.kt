@@ -16,7 +16,7 @@ public sealed class WorkflowIdentifierType {
    * A [WorkflowIdentifier] is snapshottable if its type is this [Snapshottable] class.
    *
    * @constructor
-   * @param typeName The qualified name of its corresponding [Workflow].
+   * @param typeName The type name of its corresponding [Workflow].
    * @param kClass The [KClass] of the [Workflow] this helps identify.
    */
   public data class Snapshottable(
@@ -24,7 +24,7 @@ public sealed class WorkflowIdentifierType {
     val kClass: KClass<*>? = null,
   ) : WorkflowIdentifierType() {
     public constructor(kClass: KClass<*>) : this(
-      kClass.qualifiedName ?: kClass.toString(), kClass
+      kClass.toString(), kClass
     )
   }
 

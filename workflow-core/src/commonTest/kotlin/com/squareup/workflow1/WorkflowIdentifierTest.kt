@@ -18,7 +18,8 @@ internal class WorkflowIdentifierTest {
   @Test fun `flat identifier toString`() {
     val id = TestWorkflow1.identifier
     assertEquals(
-      "WorkflowIdentifier(com.squareup.workflow1.WorkflowIdentifierTest.TestWorkflow1)",
+      "WorkflowIdentifier(class com.squareup.workflow1.WorkflowIdentifierTest\$TestWorkflow1" +
+        " (Kotlin reflection is not available))",
       id.toString()
     )
   }
@@ -50,7 +51,8 @@ internal class WorkflowIdentifierTest {
     val id = TestImpostor().identifier
     assertEquals(
       "WorkflowIdentifier(${TestImpostor::class}, " +
-        "com.squareup.workflow1.WorkflowIdentifierTest.TestWorkflow1)",
+        "class com.squareup.workflow1.WorkflowIdentifierTest\$TestWorkflow1" +
+        " (Kotlin reflection is not available))",
       id.toString()
     )
   }
