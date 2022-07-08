@@ -7,8 +7,8 @@ import com.squareup.workflow1.WorkflowInterceptor.WorkflowSession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.CoroutineContext.Key
 import kotlin.test.Test
@@ -121,7 +121,7 @@ internal class WorkflowInterceptorTest {
     )
   }
 
-  @Test fun intercept_intercepts_side_effects() {
+  @Test fun intercept_intercepts_side_effects() = runTest {
     val recorder = RecordingWorkflowInterceptor()
     val workflow = TestSideEffectWorkflow()
     val intercepted = recorder.intercept(workflow, workflow.session)
@@ -139,7 +139,7 @@ internal class WorkflowInterceptorTest {
         key: String,
         sideEffect: suspend CoroutineScope.() -> Unit
       ) {
-        runBlocking { sideEffect() }
+        launch { sideEffect() }
       }
     }
 
@@ -198,7 +198,7 @@ internal class WorkflowInterceptorTest {
         key: String,
         sideEffect: suspend CoroutineScope.() -> Unit
       ) {
-        runBlocking { sideEffect() }
+        runTest { sideEffect() }
       }
     }
 

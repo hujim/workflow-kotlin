@@ -13,9 +13,10 @@ import com.squareup.workflow1.applyTo
 import com.squareup.workflow1.identifier
 import com.squareup.workflow1.internal.SubtreeManagerTest.TestWorkflow.Rendering
 import kotlinx.coroutines.Dispatchers.Unconfined
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.selects.select
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -24,6 +25,7 @@ import kotlin.test.fail
 
 private typealias StringHandler = (String) -> WorkflowAction<String, String, String>
 
+@ExperimentalCoroutinesApi
 internal class SubtreeManagerTest {
 
   private class TestWorkflow : StatefulWorkflow<String, String, String, Rendering>() {
@@ -163,7 +165,7 @@ internal class SubtreeManagerTest {
     val (_, _, eventHandler) = manager.render(workflow, "props", key = "", handler = handler)
     manager.commitRenderedChildren()
 
-    runBlocking {
+    runTest {
       val tickOutput = async { manager.tickAction() }
       assertFalse(tickOutput.isCompleted)
 
@@ -182,7 +184,7 @@ internal class SubtreeManagerTest {
       manager.render(workflow, "props", key = "", handler = handler)
         .also { manager.commitRenderedChildren() }
 
-    runBlocking {
+    runTest {
       // First render + tick pass – uninteresting.
       render { action { setOutput("initial handler: $it") } }
         .let { rendering ->
