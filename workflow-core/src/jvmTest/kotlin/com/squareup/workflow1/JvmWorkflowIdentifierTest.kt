@@ -47,7 +47,7 @@ class JvmWorkflowIdentifierTest {
   @Test fun `unsnapshottable impostor identifier toString()`() {
     val id = TestUnsnapshottableImpostor(typeOf<String>()).identifier
     assertEquals(
-      "WorkflowIdentifier(${TestUnsnapshottableImpostor::class}, " +
+      "WorkflowIdentifier(${TestUnsnapshottableImpostor::class.qualifiedName}, " +
         "${String::class.java.name} (Kotlin reflection is not available))",
       id.toString()
     )
