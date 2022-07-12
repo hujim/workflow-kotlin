@@ -89,7 +89,7 @@ private class EmitWorkerOutputAction<P, S, O>(
   private val output: O
 ) : WorkflowAction<P, S, O>() {
   override fun toString(): String =
-    "${WorkflowIdentifierTypeHelper.uniqueName(EmitWorkerOutputAction::class)}" +
+    WorkflowIdentifierTypeNamer.uniqueName(EmitWorkerOutputAction::class) +
     "(worker=$worker, key=\"$renderKey\")"
 
   override fun Updater.apply() {

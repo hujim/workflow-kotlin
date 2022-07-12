@@ -2,7 +2,7 @@ package com.squareup.workflow1
 
 import kotlin.reflect.KClass
 
-public actual object WorkflowIdentifierTypeHelper {
+public actual object WorkflowIdentifierTypeNamer {
   // Stores mappings between KClass instances and their assigned names.
   val mappings = mutableMapOf<KClass<*>,String>()
 
@@ -16,7 +16,7 @@ public actual object WorkflowIdentifierTypeHelper {
       return mapping
     }
 
-    val identifier = "${kClass.simpleName}(${mappings.size})"
+    val identifier = "${kClass.simpleName ?: kClass.hashCode()}(${mappings.size})"
     mappings[kClass] = identifier
     return identifier
   }

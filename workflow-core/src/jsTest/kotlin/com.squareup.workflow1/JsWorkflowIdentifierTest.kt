@@ -34,8 +34,11 @@ internal class JsWorkflowIdentifierTest {
 
     val id = TestImpostor().identifier
 
-    // Expected value should be something like this: "WorkflowIdentifier(TestImpostor(3), TestWorkflow1(1))"
-    val idStructure = RegExp("WorkflowIdentifier\\(TestImpostor\\((\\d)+\\), TestWorkflow1\\((\\d)+\\)\\)")
+    // Expected value should be something like this:
+    // "WorkflowIdentifier(TestImpostor(3), TestWorkflow1(1))"
+    val idStructure = RegExp(
+      "WorkflowIdentifier\\(TestImpostor\\((\\d)+\\), TestWorkflow1\\((\\d)+\\)\\)"
+    )
     assertTrue(idStructure.test(id.toString()))
   }
 

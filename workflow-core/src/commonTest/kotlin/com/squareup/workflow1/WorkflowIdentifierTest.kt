@@ -183,7 +183,8 @@ internal class WorkflowIdentifierTest {
     private val proxied: Workflow<*, *, *>
   ) : Workflow<Nothing, Nothing, Nothing>, ImpostorWorkflow {
     override val realIdentifier: WorkflowIdentifier = proxied.identifier
-    override fun describeRealIdentifier(): String = "TestImpostor1(${WorkflowIdentifierTypeHelper.uniqueName(proxied::class)})"
+    override fun describeRealIdentifier(): String =
+      "TestImpostor1(${WorkflowIdentifierTypeNamer.uniqueName(proxied::class)})"
     override fun asStatefulWorkflow(): StatefulWorkflow<Nothing, *, Nothing, Nothing> =
       throw NotImplementedError()
   }
